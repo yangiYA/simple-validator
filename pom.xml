@@ -1,0 +1,383 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jp.que.ti.sv</groupId>
+	<artifactId>simple-validator</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<mavenrep4parent>file://${basedir}/../mavenrep</mavenrep4parent>
+		<mavenrep4child>file://${basedir}/../../mavenrep</mavenrep4child>
+		<child.version>0.0.1-SNAPSHOT</child.version>
+		<scala.version>2.10.2</scala.version>
+		<scala.version.short>2.10</scala.version.short>
+	</properties>
+
+	<modules>
+		<module>simple-valid</module>
+		<module>simple-valid4scalatra</module>
+	</modules>
+
+	<repositories>
+		<!-- <repository> <id>jp.que.ti</id> <name>yhj repository</name> <url>http://yangiya.github.com/mavenrep</url>
+			</repository> -->
+	</repositories>
+
+	<pluginRepositories>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<repository>
+			<id>jp.que.ti</id>
+			<name>yhj Repository</name>
+			<url>${mavenrep4parent}</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+
+				<plugin>
+					<groupId>net.alchim31.maven</groupId>
+					<artifactId>scala-maven-plugin</artifactId>
+					<version>3.1.6</version>
+				</plugin>
+				<!-- <plugin> <groupId>org.scala-tools</groupId> <artifactId>maven-scala-plugin</artifactId>
+					<version>2.15.2</version> </plugin> -->
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+				</plugin>
+
+				<!-- "maven-surefire-report-plugin" を "test","install" フェーズでも 有効にする -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.12.4</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.12.4</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+				</plugin>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											net.alchim31.maven
+										</groupId>
+										<artifactId>
+											scala-maven-plugin
+										</artifactId>
+										<versionRange>
+											[3.1.0,)
+										</versionRange>
+										<goals>
+											<goal>compile</goal>
+											<goal>add-source</goal>
+											<goal>testCompile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>scala-compile-first</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>add-source</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>scala-test-compile</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> <groupId>org.scala-tools</groupId> <artifactId>maven-scala-plugin</artifactId>
+				<executions> <execution> <goals> <goal>compile</goal> <goal>testCompile</goal>
+				</goals> </execution> </executions> <configuration> <scalaVersion>2.9.2</scalaVersion>
+				<jvmArgs> <jvmArg>-Xms64m</jvmArg> <jvmArg>-Xmx1024m</jvmArg> </jvmArgs>
+				</configuration> </plugin> -->
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!-- "maven-surefire-report-plugin" を "test","install" フェーズでも 有効にする -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- <excludes> <include>**/MatrixTest.*</include> </excludes> -->
+
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>test-surefire-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report-only</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>install-surefire-report</id>
+						<phase>install</phase>
+						<goals>
+							<goal>report-only</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>build-helper-maven-plugin</artifactId>
+				<executions> <execution> <id>add-source</id> <phase>generate-sources</phase>
+				<goals> <goal>add-source</goal> </goals> <configuration> <sources> <source>src/main/scala</source>
+				</sources> </configuration> </execution> <execution> <id>add-test-source</id>
+				<phase>generate-sources</phase> <goals> <goal>add-test-source</goal> </goals>
+				<configuration> <sources> <source>src/test/scala</source> </sources> </configuration>
+				</execution> </executions> </plugin> -->
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>jp.que.ti.sv</groupId>
+				<artifactId>simple-valid</artifactId>
+				<version>${child.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jp.que.ti.sv</groupId>
+				<artifactId>simple-valid4scalatra</artifactId>
+				<version>${child.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.scalatra</groupId>
+				<artifactId>scalatra_${scala.version.short}</artifactId>
+				<version>2.2.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>7.0</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- <dependency> <groupId>jp.que.ti.y_s_util</groupId> <artifactId>ysu_any</artifactId>
+				<version>${child.version}</version> </dependency> <dependency> <groupId>jp.que.ti.y_s_util</groupId>
+				<artifactId>ysu_fileedit</artifactId> <version>${child.version}</version>
+				</dependency> <dependency> <groupId>jp.que.ti.y_s_util</groupId> <artifactId>ysu_io</artifactId>
+				<version>${child.version}</version> </dependency> <dependency> <groupId>jp.que.ti.y_s_util</groupId>
+				<artifactId>ysu_xls</artifactId> <version>${child.version}</version> </dependency>
+				<dependency> <groupId>jp.que.ti.y_s_util</groupId> <artifactId>ysu_gen</artifactId>
+				<version>${child.version}</version> </dependency> -->
+			<!-- http://search.maven.org/#browse%7C-2021159614 -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>1.9.5</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>1.9.5</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- http://search.maven.org/#browse%7C327316573 -->
+			<!-- <dependency> <groupId>org.hamcrest</groupId> <artifactId>hamcrest-library</artifactId>
+				<version>1.2.1</version> <scope>test</scope> </dependency> -->
+
+			<!-- http://scala-tools.org/repo-releases/org/scalatest/scalatest_2.9.x/ -->
+			<dependency>
+				<groupId>org.scalatest</groupId>
+				<artifactId>scalatest_${scala.version.short}</artifactId>
+				<version>2.0</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- http://scala-tools.org/repo-releases/org/scala-tools/testing/specs_2.9.x/ -->
+			<!-- <dependency> <groupId>org.scala-tools.testing</groupId> <artifactId>specs_${scala.spec.version}</artifactId>
+				<version>1.6.9</version> <scope>test</scope> </dependency> -->
+
+			<!-- http://scala-tools.org/repo-releases/org/scala-lang/scala-library/2.9.2/ -->
+			<dependency>
+				<groupId>org.scala-lang</groupId>
+				<artifactId>scala-library</artifactId>
+				<version>${scala.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.scala-lang</groupId>
+				<artifactId>scala-compiler</artifactId>
+				<version>${scala.version}</version>
+			</dependency>
+
+
+			<!-- http://search.maven.org/#browse%7C108391111 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<scope>compile</scope>
+				<version>1.6.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>1.6.6</version>
+			</dependency>
+			<dependency>
+				<groupId>com.typesafe</groupId>
+				<artifactId>scalalogging-slf4j_${scala.version.short}</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.0.13</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+	<!-- <distributionManagement> <site> <id>website</id> <url>scp://webhost.company.com/www/website</url>
+		</site> </distributionManagement> -->
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe</groupId>
+			<artifactId>scalalogging-slf4j_${scala.version.short}</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_${scala.version.short}</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

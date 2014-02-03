@@ -1,0 +1,68 @@
+required = {} is required.
+maxlength= {} can not be greater than {} characters.
+minlength= {} can not be less than {} characters.
+length= {} must be {} characters.
+
+
+
+errors.header=<font color="red"><ul>
+errors.footer=</ul></font>
+errors.prefix=<li>
+errors.suffix=</li>
+errors.invalid={0} is invalid.
+###errors.maxlength={0} can not be greater than {1} characters.
+###errors.minlength={0} can not be less than {1} characters.
+errors.maxbytelength={0} can not be greater than {1} bytes.
+errors.minbytelength={0} can not be less than {1} bytes.
+errors.range={0} is not in the range {1} through {2}.
+###errors.required={0} is required.
+errors.required.other={0} is required ({1}). 
+errors.byte={0} must be an byte.
+errors.date={0} is not a date.
+errors.double={0} must be an double.
+errors.float={0} must be an float.
+errors.integer={0} must be an integer.
+errors.long={0} must be an long.
+errors.short={0} must be an short.
+errors.creditcard={0} is not a valid credit card number.
+errors.email={0} is an invalid e-mail address.
+errors.url={0} is an invalid url (web address).
+
+errors.upload.size=Uploading failed, because actual size {0} bytes exceeded limit size {1} bytes.
+labels.name=Name
+
+
+
+
+
+errors.header=<font color="red"><ul>
+errors.footer=</ul></font>
+errors.prefix=<li>
+errors.suffix=</li>
+errors.invalid={0}が不正です。
+errors.maxlength={0}の長さが最大値({1})を超えています。
+errors.minlength={0}の長さが最小値({1})未満です。
+errors.maxbytelength={0}のバイト長が最大値({1})を超えています。
+errors.minbytelength={0}のバイト長が最小値({1})未満です。
+errors.range={0}は{1}と{2}の間でなければいけません。
+errors.required={0}は必須です。
+errors.byte={0}はバイトでなければいけません。
+errors.date={0}は日付でなければいけません
+errors.double={0}は倍精度実数でなければいけません。
+errors.float={0}は単精度実数でなければいけません。
+errors.integer={0}は整数でなければいけません。
+errors.long={0}は長整数でなければいけません。
+errors.short={0}は短整数でなければいけません。
+errors.creditcard={0}はクレジットカード番号として不正です。
+errors.email={0}はメールアドレスとして不正です。
+errors.url={0}はURLとして不正です。
+
+errors.required.other={0}は{1}が入力されたときは必須です。 
+errors.phone={0}は電話番号({1})として不正です。
+errors.norole=適切なロールがありません。
+errors.debug=例外のデバッグ用。
+errors.upload.size=上限が{1}バイトなのに実際は{0}バイトだったのでアップロードできませんでした。
+
+messages.upload.complete={0}にアップロードしました。
+
+#labels.creditcardText=クレジットカードテキスト

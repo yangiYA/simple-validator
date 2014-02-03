@@ -11,3 +11,17 @@ project/plugins/project/
 
 # Scala-IDE specific
 .scala_dependencies
+
+# Maven
+target
+simple-valid/target
+simple-valid/.cache
+*/target
+
+#eclipse
+*/.classpath
+*/.project
+*/.settings
+
+# temp
+simple-valid/src/main/resources/application_ja.properties

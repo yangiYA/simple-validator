@@ -25,7 +25,7 @@ abstract class GenericValidatorMultiParamWithMessageProp(
   , messageKey: String //
   , val checkLogic: Seq[String] => Boolean //
   , paramNameForMessage: Option[String] = None //
-  ) extends ValidatorBaseWithMessageProp(paramName, messageKey, paramNameForMessage) with ValidMultiParams {
+  ) extends ValidatorBaseWithMessageProp(paramName, messageKey, paramNameForMessage) with ValidParamArray {
 
   override def isValid(params: Seq[String]) = checkLogic(params)
 }

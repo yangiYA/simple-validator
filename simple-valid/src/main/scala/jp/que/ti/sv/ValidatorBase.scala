@@ -78,7 +78,7 @@ abstract class ValidatorBaseWithMessageProp(
   ) extends ValidatorBase(paramName) {
 
   /** メッセージに表示する項目名 */
-  def paramName4Message: String = paramNameForMessage match {
+  protected def paramName4Message: String = paramNameForMessage match {
     case None        => paramName
     case Some(pName) => pName
   }
@@ -132,7 +132,7 @@ trait ValidOneParam { self: ValidatorBase =>
 /**
  *  同名のパラメータ名が複数存在する場合、すべてのパラメータを検証できるようにするための trait
  */
-trait ValidMultiParams { self: ValidatorBase =>
+trait ValidParamArray { self: ValidatorBase =>
 
   /**
    *  abstract method
@@ -152,7 +152,7 @@ trait ValidMultiParams { self: ValidatorBase =>
    *  チェック内容を定義する
    *  @return true の場合、チェックOK。 false の場合、チェックNG
    */
-  protected def isValid: Boolean = self.isValid(multiParams(paramName))
+  protected def isValid: Boolean = ValidParamArray.this.isValid(multiParams(paramName))
 
 }
 

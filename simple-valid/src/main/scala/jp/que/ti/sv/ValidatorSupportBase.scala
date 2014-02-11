@@ -14,10 +14,35 @@ import jp.que.ti.sv.validator.RegexValidator4J2ee
 import scala.util.matching.Regex
 import scala.util.matching.Regex
 
-trait ValidatorSupportBase {
+trait ValidatorSupportBase extends RequestSupport //
+  with And //
+  with RegexValid //
+  with Required //
+  with RequiredAnd //
+  with AndStopOnError //
+  with Length //
+  with MaxLength //
+  with MinLength //
+  with MinMaxLength //
+  with GenericValid //
+  {
 
+  /**
+   * パラメータが複数リクエストされた場合の汎用チェックValidator
+   */
+  def validatorMultiParam(paramName: String, messageKey: String //
+  , checkLogic: Seq[String] => Boolean //
+  ): GenericValidatorMultiParamWithMessageProp =
+    new GenericValidatorMultiParamWithMessageProp4J2ee(
+      paramName, messageKey, checkLogic, request)
+
+}
+
+protected trait RequestSupport {
   def request: HttpServletRequest
+}
 
+protected trait And extends RequestSupport {
   def and(validators: ValidatorIF*) = AndValidator(validators: _*)
   def and(validators: List[ValidatorIF]) = AndValidator(validators)
   //  def and(paramName: String //
@@ -25,7 +50,9 @@ trait ValidatorSupportBase {
   //    { AndValidator(paramName, validators.toList) }
   def and(paramName: String, paramName4Message: Option[String] //
   , validators: Function2[String, Option[String], ValidatorBase]*) = { AndValidator(paramName, paramName4Message, validators.toList) }
+}
 
+protected trait AndStopOnError extends RequestSupport {
   def andStopOnError(validators: ValidatorIF*) = AndStopOnErrorValidator(validators: _*)
   def andStopOnError(validators: List[ValidatorIF]) = AndStopOnErrorValidator(validators)
   //TODO この下不要にする？
@@ -34,7 +61,71 @@ trait ValidatorSupportBase {
   def andStopOnError(paramName: String, paramName4Message: Option[String] //
   , validators: Function2[String, Option[String], ValidatorBase]*) = { AndStopOnErrorValidator(paramName, paramName4Message, validators.toList) }
 
+}
+
+protected trait GenericValid extends RequestSupport {
   //*********
+  def genericValid(paramName: String, messageKey: String, checkLogic: Option[String] => Boolean) =
+    new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request)
+  def genericValid(paramName: String, messageKey: String, checkLogic: Option[String] => Boolean, paramName4Message: String) =
+    new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request, Option(paramName4Message))
+  //  def genericValid(messageKey: String, checkLogic: Option[String] => Boolean, paramName4Message: Option[String]) = {
+  //    (paramName: String) =>
+  //      new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request, paramName4Message)
+  //  }
+  def genericValid(messageKey: String, checkLogic: Option[String] => Boolean) = {
+    (paramName: String, paramName4Message: Option[String]) =>
+      new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request, paramName4Message)
+  }
+
+}
+
+//genericValid
+//  with MinMaxLength //
+
+protected trait Length extends RequestSupport {
+  def length(paramName: String, length: Int) = new Length4J2ee(paramName, length, request)
+  def length(paramName: String, length: Int, paramName4Message: String) =
+    new Length4J2ee(paramName, length, request, Option(paramName4Message))
+  //  def length(length: Int, paramName4Message: Option[String]) = {
+  //    (paramName: String) =>
+  //      new Length4J2ee(paramName, length, request, paramName4Message)
+  //  }
+  def length(length: Int) = {
+    (paramName: String, paramName4Message: Option[String]) =>
+      new Length4J2ee(paramName, length, request, paramName4Message)
+  }
+}
+
+protected trait MaxLength extends RequestSupport {
+  def maxlength(paramName: String, max: Int) = new Maxlength4J2ee(paramName, max, request)
+  def maxlength(paramName: String, max: Int, paramName4Message: String) =
+    new Maxlength4J2ee(paramName, max, request, Option(paramName4Message))
+  //  def maxlength(max: Int, paramName4Message: Option[String]) = {
+  //    (paramName: String) =>
+  //      new Maxlength4J2ee(paramName, max, request, paramName4Message)
+  //  }
+  def maxlength(max: Int) = {
+    (paramName: String, paramName4Message: Option[String]) =>
+      new Maxlength4J2ee(paramName, max, request, paramName4Message)
+  }
+}
+
+protected trait MinLength extends RequestSupport {
+  def minlength(paramName: String, min: Int) = new Minlength4J2ee(paramName, min, request)
+  def minlength(paramName: String, min: Int, paramName4Message: String) =
+    new Minlength4J2ee(paramName, min, request, Option(paramName4Message))
+  //  def minlength(min: Int, paramName4Message: Option[String]) = {
+  //    (paramName: String) =>
+  //      new Minlength4J2ee(paramName, min, request, paramName4Message)
+  //  }
+  def minlength(min: Int) = {
+    (paramName: String, paramName4Message: Option[String]) =>
+      new Minlength4J2ee(paramName, min, request, paramName4Message)
+  }
+}
+
+protected trait MinMaxLength extends RequestSupport {
   def minMaxLength(paramName: String, min: Int, max: Int): AndValidator =
     new MinMaxLength(paramName, min, max)
   def minMaxLength(paramName: String, min: Int, max: Int, paramName4Message: Option[String]): AndValidator =
@@ -51,46 +142,30 @@ trait ValidatorSupportBase {
     List(new Minlength4J2ee(paramName, min, request, paramNameForMessage), new Maxlength4J2ee(paramName, max, request, paramNameForMessage) //
     ))
 
-  //*********
-  def maxlength(paramName: String, max: Int) = new Maxlength4J2ee(paramName, max, request)
-  def maxlength(paramName: String, max: Int, paramName4Message: String) =
-    new Maxlength4J2ee(paramName, max, request, Option(paramName4Message))
-  //  def maxlength(max: Int, paramName4Message: Option[String]) = {
-  //    (paramName: String) =>
-  //      new Maxlength4J2ee(paramName, max, request, paramName4Message)
-  //  }
-  def maxlength(max: Int) = {
-    (paramName: String, paramName4Message: Option[String]) =>
-      new Maxlength4J2ee(paramName, max, request, paramName4Message)
-  }
+}
 
-  //*********
-  def minlength(paramName: String, min: Int) = new Minlength4J2ee(paramName, min, request)
-  def minlength(paramName: String, min: Int, paramName4Message: String) =
-    new Minlength4J2ee(paramName, min, request, Option(paramName4Message))
-  //  def minlength(min: Int, paramName4Message: Option[String]) = {
-  //    (paramName: String) =>
-  //      new Minlength4J2ee(paramName, min, request, paramName4Message)
-  //  }
-  def minlength(min: Int) = {
-    (paramName: String, paramName4Message: Option[String]) =>
-      new Minlength4J2ee(paramName, min, request, paramName4Message)
-  }
+//  with Required //
 
-  //*********
-  def length(paramName: String, length: Int) = new Length4J2ee(paramName, length, request)
-  def length(paramName: String, length: Int, paramName4Message: String) =
-    new Length4J2ee(paramName, length, request, Option(paramName4Message))
-  //  def length(length: Int, paramName4Message: Option[String]) = {
-  //    (paramName: String) =>
-  //      new Length4J2ee(paramName, length, request, paramName4Message)
-  //  }
-  def length(length: Int) = {
-    (paramName: String, paramName4Message: Option[String]) =>
-      new Length4J2ee(paramName, length, request, paramName4Message)
-  }
+protected trait RegexValid extends RequestSupport {
+  def regexValid(paramName: String, messageKey: String, regex: Regex) =
+    new RegexValidator4J2ee(
+      paramName //
+      , regex //
+      , messageKey //
+      , request //
+      , None //
+      )
+  def regexValid(paramName: String, messageKey: String, regex: Regex, paramNameForMessage: String) =
+    new RegexValidator4J2ee(
+      paramName //
+      , regex //
+      , messageKey //
+      , request //
+      , Option(paramNameForMessage) //
+      )
+}
 
-  //*********
+protected trait Required extends RequestSupport {
   def required(paramName: String) = new Required4J2ee(paramName, request)
   def required(paramName: String, paramName4Message: String) =
     new Required4J2ee(paramName, request, Option(paramName4Message))
@@ -101,14 +176,8 @@ trait ValidatorSupportBase {
   def required() = { (paramName: String, paramName4Message: Option[String]) =>
     new Required4J2ee(paramName, request, paramName4Message)
   }
-
-  //*********
-  //  def requiredAnd(paramName: String, validators: String => ValidatorBase*) = {
-  //    val rq = required(paramName, paramName4Message)
-  //    AndStopOnErrorValidator(paramName, ((pName: String) => new Required4J2ee(pName, request)) :: validators.toList)
-  //  }
-
-  //************
+}
+protected trait RequiredAnd extends RequestSupport with AndStopOnError with Required with And {
   def requiredAnd(paramName: String, paramName4Message: Option[String], validators: List[ValidatorBase]) = {
     andStopOnError(
       List(paramName4Message match {
@@ -128,54 +197,6 @@ trait ValidatorSupportBase {
       , and(paramName, paramName4Message, validators: _*) //
       ))
   }
-
-  //  def required(paramName: String, paramName4Message: String) =
-  //    new Required4J2ee(paramName, request, Option(paramName4Message))
-  //  def required(
-  //    paramName4Message: Option[String] = None //
-  //    ) = { (paramName: String) => new Required4J2ee(paramName, request, paramName4Message) }
-
-  //*********
-  def genericValid(paramName: String, messageKey: String, checkLogic: Option[String] => Boolean) =
-    new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request)
-  def genericValid(paramName: String, messageKey: String, checkLogic: Option[String] => Boolean, paramName4Message: String) =
-    new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request, Option(paramName4Message))
-  //  def genericValid(messageKey: String, checkLogic: Option[String] => Boolean, paramName4Message: Option[String]) = {
-  //    (paramName: String) =>
-  //      new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request, paramName4Message)
-  //  }
-  def genericValid(messageKey: String, checkLogic: Option[String] => Boolean) = {
-    (paramName: String, paramName4Message: Option[String]) =>
-      new GenericValidatorOneParamWithMessageProp4J2ee(paramName, messageKey, checkLogic, request, paramName4Message)
-  }
-
-  //*********
-  def regexValid(paramName: String, messageKey: String, regex: Regex) =
-    new RegexValidator4J2ee(
-      paramName //
-      , regex //
-      , messageKey //
-      , request //
-      , None //
-      )
-  def regexValid(paramName: String, messageKey: String, regex: Regex, paramNameForMessage: String) =
-    new RegexValidator4J2ee(
-      paramName //
-      , regex //
-      , messageKey //
-      , request //
-      , Option(paramNameForMessage) //
-      )
-
-  //*********
-
-  /**
-   * パラメータが複数リクエストされた場合の汎用チェックValidator
-   */
-  def validatorMultiParam(paramName: String, messageKey: String //
-  , checkLogic: Seq[String] => Boolean //
-  ): GenericValidatorMultiParamWithMessageProp =
-    new GenericValidatorMultiParamWithMessageProp4J2ee(
-      paramName, messageKey, checkLogic, request)
-
 }
+
+

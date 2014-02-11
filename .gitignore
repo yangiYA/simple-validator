@@ -16,6 +16,8 @@ project/plugins/project/
 target
 simple-valid/target
 simple-valid/.cache
+simple-valid4scalatra/.cache
+simple-valid4scalatra/.cache
 */target
 
 #eclipse

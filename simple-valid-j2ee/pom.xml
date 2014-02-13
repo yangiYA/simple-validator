@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>jp.que.ti.sv</groupId>
+		<artifactId>simple-validator</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+
+	<!-- <groupId>jp.que.ti.sv</groupId> -->
+	<artifactId>simple-valid-j2ee</artifactId>
+	<packaging>jar</packaging>
+	<name>simple-valid-j2ee -- simple-validator with J2EE</name>
+	<version>${child.version}</version>
+
+	<distributionManagement>
+		<repository>
+			<id>jp.que.ti</id>
+			<name>yhj Repository</name>
+			<url>${mavenrep4child}</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>jp.que.ti.sv</groupId>
+			<artifactId>simple-valid</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+</project>

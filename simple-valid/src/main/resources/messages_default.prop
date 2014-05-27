@@ -1,8 +1,13 @@
-required = {} is required.
-maxlength= {} can not be greater than {} characters.
-minlength= {} can not be less than {} characters.
-length= {} must be {} characters.
-
+required   = {} is required.
+requiredif = {} is required ({}). 
+maxlength  = {} can not be greater than {} characters.
+minlength  = {} can not be less than {} characters.
+maxvalue   = {} can not be greater than {} .
+minvalue   = {} can not be greater than {} .
+length     = {} must be {} characters.
+invalid    = {} is invalid.
+requiredif = {} is required ({}).
+number     = {} must be number.
 
 
 errors.header=<font color="red"><ul>

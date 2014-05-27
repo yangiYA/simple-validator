@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>jp.que.ti.sv</groupId>
 		<artifactId>simple-validator</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -37,10 +37,14 @@
 
 	<dependencies>
 
+<!--
+-->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
+<!--
+ -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>

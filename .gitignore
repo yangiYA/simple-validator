@@ -24,6 +24,7 @@ simple-valid4scalatra/.cache
 */.classpath
 */.project
 */.settings
+*/.cache
 
 # temp
 simple-valid/src/main/resources/application_ja.properties

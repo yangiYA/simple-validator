@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory
 import javax.servlet.http.HttpServletRequest
 
 @RunWith(classOf[JUnitRunner])
-class ValidatorSupportBaseRegexTest extends FunSuite with ValidatorSupportBase {
+class ValidatorSupportBaseRegexTest extends FunSuite
+//with ValidatorSupportBase
+{
   val log = LoggerFactory.getLogger(getClass())
 
   def request: HttpServletRequest = { //*** テストデータ用リクエストオブジェクト
@@ -38,27 +40,27 @@ class ValidatorSupportBaseRegexTest extends FunSuite with ValidatorSupportBase {
   }
 
   //*************************************
-  test("regex test") {
-
-    var validator = regexValid("item1", "length" /*仮のメッセージID*/ , """item.*""".r)
-    var result: MessageBox = validator.valid()
-
-    assert(result.isEmpty === true, "fail? result=" + result)
-    assert(result === MessageBox())
-
-    validator = regexValid("item1", "length" /*仮のメッセージID*/ , """HOGE.*""".r)
-    result = validator.valid()
-    assert(result.keys == List("item1"))
-
-    //*** paramName4Message test ***
-    validator = regexValid("item1", "length" /*仮のメッセージID*/ , """HOGE.*""".r, "ParamName4Message")
-    result = validator.valid()
-
-    assert(result.keys == List("item1"))
-    var msgs = result.messages("item1")
-    assert(msgs.length == 1)
-    var msg = msgs.head
-    assert(msg.contains("ParamName4Message"), "メッセージに、パラメータで指定した項目名が含まれているか確認 : msg=" + msg)
-
-  }
+//  test("regex test") {
+//
+//    var validator = regexValid("item1", "length" /*仮のメッセージID*/ , """item.*""".r)
+//    var result: MessageBox = validator.valid()
+//
+//    assert(result.isEmpty === true, "fail? result=" + result)
+//    assert(result === MessageBox())
+//
+//    validator = regexValid("item1", "length" /*仮のメッセージID*/ , """HOGE.*""".r)
+//    result = validator.valid()
+//    assert(result.keys == List("item1"))
+//
+//    //*** paramName4Message test ***
+//    validator = regexValid("item1", "length" /*仮のメッセージID*/ , """HOGE.*""".r, "ParamName4Message")
+//    result = validator.valid()
+//
+//    assert(result.keys == List("item1"))
+//    var msgs = result.messages("item1")
+//    assert(msgs.length == 1)
+//    var msg = msgs.head
+//    assert(msg.contains("ParamName4Message"), "メッセージに、パラメータで指定した項目名が含まれているか確認 : msg=" + msg)
+//
+//  }
 }

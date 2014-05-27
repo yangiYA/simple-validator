@@ -4,7 +4,7 @@
 
 	<groupId>jp.que.ti.sv</groupId>
 	<artifactId>simple-validator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -16,13 +16,14 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mavenrep4parent>file://${basedir}/../mavenrep</mavenrep4parent>
 		<mavenrep4child>file://${basedir}/../../mavenrep</mavenrep4child>
-		<child.version>0.0.1-SNAPSHOT</child.version>
+		<child.version>0.0.2-SNAPSHOT</child.version>
 		<scala.version>2.10.2</scala.version>
 		<scala.version.short>2.10</scala.version.short>
 	</properties>
 
 	<modules>
 		<module>simple-valid</module>
+		<module>simple-valid-j2ee</module>
 		<module>simple-valid4scalatra</module>
 	</modules>
 
@@ -236,6 +237,11 @@
 			<dependency>
 				<groupId>jp.que.ti.sv</groupId>
 				<artifactId>simple-valid</artifactId>
+				<version>${child.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jp.que.ti.sv</groupId>
+				<artifactId>simple-valid-j2ee</artifactId>
 				<version>${child.version}</version>
 			</dependency>
 			<dependency>

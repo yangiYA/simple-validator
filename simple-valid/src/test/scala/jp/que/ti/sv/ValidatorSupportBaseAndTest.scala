@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory
 
 import javax.servlet.http.HttpServletRequest
 
-@RunWith(classOf[JUnitRunner])
-class ValidatorSupportBaseAndTest extends FunSuite with ValidatorSupportBase {
+//@RunWith(classOf[JUnitRunner])
+class ValidatorSupportBaseAndTest extends FunSuite
+//with ValidatorSupportBase
+{
   val log = LoggerFactory.getLogger(getClass())
 
   def request: HttpServletRequest = { //*** テストデータ用リクエストオブジェクト
@@ -38,39 +40,39 @@ class ValidatorSupportBaseAndTest extends FunSuite with ValidatorSupportBase {
   }
 
   //*************************************
-  test("simple and test") {
-
-    var validator = and("item1", Option("ParamName4Message"), maxlength(8), minlength(5)) //item1 = "item-1-1"
-    var result: MessageBox = validator.valid()
-
-    assert(result.isEmpty === true, "fail? result=" + result)
-    assert(result === MessageBox())
-
-    //
-    validator = and("item1", Option("ParamName4Message"), maxlength(7), minlength(9))
-    result = validator.valid()
-    assert(result.keys == List("item1"))
-
-    assert(result.keys == List("item1"))
-    var msgs = result.messages("item1")
-    assert(msgs.length == 2)
-    var msg1 = msgs.head
-    var msg2 = (msgs.tail).head
-
-
-    log.debug(""" msg1={} """, msg1)
-    log.debug(""" msg2={} """, msg2)
-
-    assert(msg1.contains("ParamName4Message"), "メッセージに、パラメータで指定した項目名が含まれているか確認 : msg=" + msg1)
-    assert(msg2.contains("ParamName4Message"), "メッセージに、パラメータで指定した項目名が含まれているか確認 : msg=" + msg2)
-
-    //
-    validator = and("noItem-name", Option("ParamName4Message"), maxlength(7), minlength(9))
-    result = validator.valid()
-
-    assert(result.isEmpty === true, "fail? result=" + result)
-    assert(result === MessageBox())
-
-
-  }
+//  test("simple and test") {
+//
+//    var validator = and("item1", Option("ParamName4Message"), maxlength(8), minlength(5)) //item1 = "item-1-1"
+//    var result: MessageBox = validator.valid()
+//
+//    assert(result.isEmpty === true, "fail? result=" + result)
+//    assert(result === MessageBox())
+//
+//    //
+//    validator = and("item1", Option("ParamName4Message"), maxlength(7), minlength(9))
+//    result = validator.valid()
+//    assert(result.keys == List("item1"))
+//
+//    assert(result.keys == List("item1"))
+//    var msgs = result.messages("item1")
+//    assert(msgs.length == 2)
+//    var msg1 = msgs.head
+//    var msg2 = (msgs.tail).head
+//
+//
+//    log.debug(""" msg1={} """, msg1)
+//    log.debug(""" msg2={} """, msg2)
+//
+//    assert(msg1.contains("ParamName4Message"), "メッセージに、パラメータで指定した項目名が含まれているか確認 : msg=" + msg1)
+//    assert(msg2.contains("ParamName4Message"), "メッセージに、パラメータで指定した項目名が含まれているか確認 : msg=" + msg2)
+//
+//    //
+//    validator = and("noItem-name", Option("ParamName4Message"), maxlength(7), minlength(9))
+//    result = validator.valid()
+//
+//    assert(result.isEmpty === true, "fail? result=" + result)
+//    assert(result === MessageBox())
+//
+//
+//  }
 }

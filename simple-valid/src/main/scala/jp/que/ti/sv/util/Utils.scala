@@ -1,14 +1,14 @@
-package jp.que.ti.sv
+package jp.que.ti.sv.util
+
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.Reader
+import java.util.Properties
+
+import scala.collection.JavaConverters._
+import scala.util.control.Exception._
 
 import org.slf4j.LoggerFactory
-import java.io.InputStream
-import scala.util.control.Exception._
-import java.io.Reader
-import java.io.InputStreamReader
-import java.util.Properties
-import scala.collection.JavaConverters._
-import javax.servlet.http.HttpServletRequest
-import com.sun.org.apache.xalan.internal.xsltc.compiler.ForEach
 
 object Utils {
   private val log = LoggerFactory.getLogger(getClass());
@@ -89,6 +89,9 @@ object Utils {
       case c: Throwable => onError(c)
     }
   }
+
+
+  //; hankaku
 
   //  import scala.collection.JavaConverters._
   //  def hoge(request: HttpServletRequest): String = {

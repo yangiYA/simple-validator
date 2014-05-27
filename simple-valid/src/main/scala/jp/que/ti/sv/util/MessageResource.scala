@@ -1,8 +1,4 @@
-package jp.que.ti.sv
-
-import java.util.Properties
-import java.io.BufferedInputStream
-import java.io.FileInputStream
+package jp.que.ti.sv.util
 import org.slf4j.helpers.MessageFormatter
 import scala.collection.JavaConverters._
 import org.slf4j.LoggerFactory
@@ -48,6 +44,16 @@ object MessageResource {
       MessageFormatter.format(message(key), arg1, arg2).getMessage()
     } else {
       MessageFormatter.arrayFormat(message(key), (arg1 :: arg2 :: args.toList).toArray).getMessage()
+    }
+  }
+
+  def message(key: String, args: Seq[String]): String = {
+    if (args.length == 0) {
+      message(key)
+    } else if (args.length == 1) {
+      message(key, args.head)
+    } else {
+      MessageFormatter.arrayFormat(message(key), args.toArray).getMessage()
     }
   }
 

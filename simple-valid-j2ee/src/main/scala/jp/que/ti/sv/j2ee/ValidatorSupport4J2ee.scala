@@ -1,19 +1,22 @@
 package jp.que.ti.sv.j2ee
 
 import scala.util.matching.Regex
-import javax.servlet.http.HttpServletRequest
 import jp.que.ti.sv.ParameterInfo
-import jp.que.ti.sv.Validator1Param
 import jp.que.ti.sv.Validator1ParamIF
+import jp.que.ti.sv.validator.immutable.pram1.GenericValidator
 import jp.que.ti.sv.validator.immutable.pram1.Length
+import jp.que.ti.sv.validator.immutable.pram1.Max
 import jp.que.ti.sv.validator.immutable.pram1.Maxlength
+import jp.que.ti.sv.validator.immutable.pram1.Min
 import jp.que.ti.sv.validator.immutable.pram1.Minlength
+import jp.que.ti.sv.validator.immutable.pram1.Number
 import jp.que.ti.sv.validator.immutable.pram1.RangeLength
 import jp.que.ti.sv.validator.immutable.pram1.RegexValidator
 import jp.que.ti.sv.validator.immutable.pram1.Required
-import jp.que.ti.sv.validator.immutable.pram2.Requiredif
-import jp.que.ti.sv.validator.immutable.pram1.GenericValidator
 import jp.que.ti.sv.validator.immutable.pram2.GenericValidator2
+import jp.que.ti.sv.validator.immutable.pram2.Requiredif
+import jp.que.ti.sv.validator.immutable.pram1.Email
+import javax.servlet.http.HttpServletRequest
 
 trait ValidatorSupport4J2ee {
 
@@ -36,11 +39,21 @@ trait ValidatorSupport4J2ee {
 
   def validator(checkFunction: String => Boolean, messageKey: String) = GenericValidator(checkFunction, messageKey)
 
+  def email = Email()
+
   def length(length: Int) = Length(length)
 
   def maxlength(length: Int) = Maxlength(length)
 
+  def max(value: Int) = Max(value)
+
+  def max(value: Long) = Max(value)
+
   def minlength(length: Int) = Minlength(length)
+
+  def min(value: Int) = Min(value)
+
+  def number = Number()
 
   def rangelength(minLength: Int, maxLength: Int) = RangeLength(minLength, maxLength)
 

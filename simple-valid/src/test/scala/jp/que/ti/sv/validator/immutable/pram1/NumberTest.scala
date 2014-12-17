@@ -9,14 +9,14 @@ import jp.que.ti.sv.util.MessageResource.message
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class NumberValidatorTest extends FunSuite {
+class NumberTest extends FunSuite {
 
   private def validNumber(paramVal: Option[String]): MessageBox =
-    NumberValidator().valid(paramVal, ParameterInfo("param1", "p4Msg"), MessageBox())
+    Number().valid(paramVal, ParameterInfo("param1", "p4Msg"), MessageBox())
 
   /** エラーメッセージを作成します。引数 length は、validatorに指定する長さ   */
   private def errorMessageBox(itemName: String = "p4Msg"): MessageBox =
-    MessageBox("param1", message(NumberValidator().messageKey, itemName))
+    MessageBox("param1", message(Number().messageKey, itemName))
 
   //***************************************
 
@@ -27,7 +27,7 @@ class NumberValidatorTest extends FunSuite {
   }
 
   test("message key.") {
-    assert { NumberValidator().messageKey == "number" }
+    assert { Number().messageKey == "number" }
 
   }
 

@@ -9,16 +9,16 @@
 
 	<properties>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<maven.compiler.target>1.6</maven.compiler.target>
-		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mavenrep4parent>file://${basedir}/../mavenrep</mavenrep4parent>
 		<mavenrep4child>file://${basedir}/../../mavenrep</mavenrep4child>
 		<child.version>0.0.2-SNAPSHOT</child.version>
-		<scala.version>2.10.2</scala.version>
-		<scala.version.short>2.10</scala.version.short>
+		<scala.version>2.11.4</scala.version>
+		<scala.version.short>2.11</scala.version.short>
 	</properties>
 
 	<modules>
@@ -44,9 +44,8 @@
 	</distributionManagement>
 
 	<build>
-		<sourceDirectory>src/main/scala</sourceDirectory>
-		<testSourceDirectory>src/test/scala</testSourceDirectory>
-
+		<!-- <sourceDirectory>src/main/scala</sourceDirectory> -->
+		<!-- <testSourceDirectory>src/test/scala</testSourceDirectory> -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -58,7 +57,7 @@
 				<plugin>
 					<groupId>net.alchim31.maven</groupId>
 					<artifactId>scala-maven-plugin</artifactId>
-					<version>3.1.6</version>
+					<!-- <version>3.1.6</version> -->
 				</plugin>
 				<!-- <plugin> <groupId>org.scala-tools</groupId> <artifactId>maven-scala-plugin</artifactId>
 					<version>2.15.2</version> </plugin> -->
@@ -162,19 +161,10 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<!-- <plugin> <groupId>org.scala-tools</groupId> <artifactId>maven-scala-plugin</artifactId>
-				<executions> <execution> <goals> <goal>compile</goal> <goal>testCompile</goal>
-				</goals> </execution> </executions> <configuration> <scalaVersion>2.9.2</scalaVersion>
-				<jvmArgs> <jvmArg>-Xms64m</jvmArg> <jvmArg>-Xmx1024m</jvmArg> </jvmArgs>
-				</configuration> </plugin> -->
-
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${maven.compiler.target}</source>
+					<target>${maven.compiler.source}</target>
 				</configuration>
 			</plugin>
 			<!-- "maven-surefire-report-plugin" を "test","install" フェーズでも 有効にする -->
@@ -252,9 +242,8 @@
 			<dependency>
 				<groupId>org.scalatra</groupId>
 				<artifactId>scalatra_${scala.version.short}</artifactId>
-				<version>2.2.1</version>
+				<version>2.3.0</version>
 			</dependency>
-
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
@@ -297,7 +286,7 @@
 			<dependency>
 				<groupId>org.scalatest</groupId>
 				<artifactId>scalatest_${scala.version.short}</artifactId>
-				<version>2.0</version>
+				<version>2.2.0</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -331,10 +320,14 @@
 				<artifactId>slf4j-simple</artifactId>
 				<version>1.6.6</version>
 			</dependency>
+
+			<!-- <dependency> <groupId>com.typesafe</groupId> <artifactId>scalalogging-slf4j_${scala.version.short}</artifactId>
+				<version>1.0.1</version> </dependency> -->
+
 			<dependency>
-				<groupId>com.typesafe</groupId>
-				<artifactId>scalalogging-slf4j_${scala.version.short}</artifactId>
-				<version>1.0.1</version>
+				<groupId>com.typesafe.scala-logging</groupId>
+				<artifactId>scala-logging-slf4j_${scala.version.short}</artifactId>
+				<version>2.1.2</version>
 			</dependency>
 
 			<dependency>
@@ -354,10 +347,15 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>com.typesafe</groupId>
-			<artifactId>scalalogging-slf4j_${scala.version.short}</artifactId>
+			<groupId>com.typesafe.scala-logging</groupId>
+			<artifactId>scala-logging-slf4j_${scala.version.short}</artifactId>
 		</dependency>
+
+		<!-- <dependency> <groupId>com.typesafe</groupId> <artifactId>scalalogging-slf4j_${scala.version.short}</artifactId>
+			</dependency> -->
+
 
 		<dependency>
 			<groupId>junit</groupId>

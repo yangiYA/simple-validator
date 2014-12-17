@@ -64,9 +64,6 @@ abstract class ValidatorDecorator[A, V <: Validator[A]](protected val validator:
 
   def parameterInfo: ParameterInfo
 
-//  protected def paramValue: A
-//  protected def paramValue(parameterInfo: ParameterInfo): A
-
   def valid(paramValue: A, parameterInfo: ParameterInfo, messageBox: MessageBox): MessageBox =
     validator.valid(paramValue, parameterInfo, messageBox)
 

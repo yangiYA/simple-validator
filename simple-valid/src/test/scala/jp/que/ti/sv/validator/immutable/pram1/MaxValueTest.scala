@@ -14,8 +14,11 @@ class MaxValueTest extends FunSuite {
   private def validMaxValue(maxValue: Int, paramVal: Option[String]): MessageBox =
     MaxValue(maxValue).valid(paramVal, ParameterInfo("param1", "p4Msg"), MessageBox())
 
-  private def errorMessageBox(minlength: Int, itemName: String = "p4Msg"): MessageBox =
-    MessageBox("param1", message(Minlength(1).messageKey, itemName, minlength + ""))
+  private def validMaxValue(maxValue: Long, paramVal: Option[String]): MessageBox =
+    MaxValue(maxValue).valid(paramVal, ParameterInfo("param1", "p4Msg"), MessageBox())
+
+  private def errorMessageBox(maxValue: Long, itemName: String = "p4Msg"): MessageBox =
+    MessageBox("param1", message(MaxValue(1L).messageKey, itemName, maxValue + ""))
 
   //***************************************
 
@@ -30,7 +33,7 @@ class MaxValueTest extends FunSuite {
     assert { MaxValue(1).messageKey == "maxvalue" }
   }
 
-  test("""when the parameter is "<" or "==" .""") {
+  test("""when the parameter is less or "==" .""") {
     var mb = validMaxValue(1, Some("1"))
     assert { (mb == MessageBox()) }
 
@@ -40,50 +43,29 @@ class MaxValueTest extends FunSuite {
     mb = validMaxValue(9999999999L, Option("8888888888"))
     assert { (mb == MessageBox()) }
 
+    mb = validMaxValue(Int.MaxValue, Option((Int.MaxValue - 1) + ""))
+    assert { (mb == MessageBox()) }
+
   }
 
-  //  test("""when the parameter is ">=" or "==" .""") {
-  //    var mb = validMinlength(1, None)
-  //    assert { (mb == MessageBox()) }
-  //
-  //    mb = validMinlength(2, Option(" \r\n　"))
-  //    assert { (mb == MessageBox()) }
-  //
-  //    mb = validMinlength(3, Option("123"))
-  //    assert { (mb == MessageBox()) }
-  //
-  //    mb = validMinlength(4, Option("12345"))
-  //    assert { (mb == MessageBox()) }
-  //
-  //    mb = validMinlength(5, Option(" 12345 "))
-  //    assert { (mb == MessageBox()) }
-  //
-  //    mb = validMinlength(6, Option(" \r\n　123456　\t "))
-  //    assert { (mb == MessageBox()) }
-  //  }
-  //
-  //  test("""when the parameter is ">=" or "==" . (long data case) """) {
-  //    var mb = validMinlength(50, Option("12345678901234567890123456789012345678901234567890")) //50文字
-  //    assert { (mb == MessageBox()) }
-  //
-  //    mb = validMinlength(50, Option("123456789012345678901234567890123456789012345678901")) //51文字
-  //    assert { (mb == MessageBox()) }
-  //  }
-  //
-  //  test("""when the parameter is "<"  .""") {
-  //    var mb = validMinlength(4, Option("123"))
-  //    assert { (mb == errorMessageBox(4)) }
-  //
-  //    mb = validMinlength(5, Option(" 1234 "))
-  //    assert { (mb == errorMessageBox(5)) }
-  //
-  //    mb = validMinlength(6, Option(" \r\n　12345　\t "))
-  //    assert { (mb == errorMessageBox(6)) }
-  //  }
-  //
-  //  test("""when the parameter is "<"  . (long data case) """) {
-  //    var mb = validMinlength(50, Option("1234567890123456789012345678901234567890123456789")) //49文字
-  //    assert { (mb == errorMessageBox(50)) }
-  //  }
+  test("""when the parameter is greater .""") {
+    var mb = validMaxValue(1, Some("2"))
+    assert { (mb == errorMessageBox(1)) }
+
+    mb = validMaxValue(2, Option("3"))
+    assert { (mb == errorMessageBox(2)) }
+
+    mb = validMaxValue(8888888888L, Option("9999999999"))
+    assert { (mb == errorMessageBox(8888888888L)) }
+
+    mb = validMaxValue(Int.MaxValue, Option((Int.MaxValue + 100L) + ""))
+    assert { (mb == errorMessageBox(Int.MaxValue)) }
+
+  }
+
+  test("""when the parameter is not Number .""") {
+    var mb = validMaxValue(1, Some("hoge"))
+    assert { (mb == MessageBox()) }
+  }
 
 }

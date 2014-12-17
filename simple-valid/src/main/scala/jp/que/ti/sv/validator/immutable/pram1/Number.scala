@@ -6,7 +6,7 @@ import jp.que.ti.sv.util.StringUtil
 /**
  * パラメータの文字が、数字であることをチェックする Validator
  */
-class NumberValidator protected () extends NotRequiredBase("number") {
+class Number protected () extends NotRequiredBase("number") {
 
   def isValidInputed(paramValue: String): Boolean =
     StringUtil.isNumberOnly(
@@ -14,8 +14,8 @@ class NumberValidator protected () extends NotRequiredBase("number") {
 
 }
 
-object NumberValidator {
-  private val numberObject = new NumberValidator()
+object Number {
+  private val numberObject = new Number()
 
   def apply() = numberObject
 }
